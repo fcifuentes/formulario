@@ -1,0 +1,83 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="jquery.js">\x3C/script>')</script>
+<form name="Ilogicidad" action="datacrm.php" method="post" accept-charset="utf-8" enctype="multipart/form-data" class="Form">
+ <input type="hidden" name="publicid" value="073afb3d1c7bf804d849656262536756" />
+ <input type="hidden" name="name" value="Ilogicidad" />
+ <input type="hidden" name="ad_gclib" id="ad_gclib" value="">
+ <input type="hidden" name="webform" value="14" />
+ <input type="hidden" name="VTIGER_RECAPTCHA_PUBLIC_KEY" value="6LeOmwwTAAAAAKMWsIF5CdBPmC5QfDQLHxZRGvit" />
+  <table>
+         <tr>
+ <td><label>Nombre de contacto*</label></td><td>
+    <input type="text" name="lastname" value="" required /> </td>
+ </tr>
+         <tr>
+ <td><label>Fase de venta*</label></td><td>
+    <select name="sales_stage" required >
+ <option value>Seleccionar valor</option>
+ <option value="Contacto en frio" >Contacto en frio</option>
+ <option value="Prospectos" selected >Prospectos</option>
+ <option value="Filtrados" >Filtrados</option>
+ <option value="Propuesta o cotizacion" >Propuesta o cotizacion</option>
+ <option value="Interesado" >Interesado</option>
+ <option value="Closed Won" >Cerrada-Ganada</option>
+ <option value="Closed Lost" >Cerrada-Perdida</option>
+ </select>
+ </td>
+ </tr>
+         <tr>
+ <td><label>Cliente*</label></td><td>
+    <input type="text" name="accountname" value="" required /> </td>
+ </tr>
+         <tr>
+ <td><label>Fecha estimada de cierre*</label></td><td>
+    <input type="text" name="closingdate" value="" required />(yyyy-mm-dd) </td>
+ </tr>
+         <tr>
+ <td><label>Nombre de negocio*</label></td><td>
+    <input type="text" name="potentialname" value="" required /> </td>
+ </tr>
+         <tr>
+ <td><label>Referencia*</label></td><td>
+    <input type="text" name="ticket_title" value="" required /> </td>
+ </tr>
+         <tr>
+ <td><label>Estado*</label></td><td>
+    <select name="ticketstatus" required >
+ <option value>Seleccionar valor</option>
+ <option value="Open" selected >Abierta</option>
+ <option value="Closed" >Cerrada</option>
+ <option value="In Progress" >En progreso</option>
+ <option value="Wait For Response" >Esperando respuesta</option>
+ </select>
+ </td>
+ </tr>
+  </table>
+ <input type="button" value="Submit" onclick="submitForm();"></input>
+</form>
+<script type="text/javascript">
+ $(document).ready(function () {
+ function getParameterByName(name) {
+ var variable = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+ var regex = new RegExp("[\\?&]" + variable + "=([^&#]*)"),
+ results = regex.exec(location.search);
+ return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+ }
+ var gclid = getParameterByName('gclid');
+ $('#ad_gclib').val(gclid);
+ });
+
+ function submitForm() {
+  var form = jQuery('.Form');
+  jQuery.post('datacrm.php', form.serialize(), function(data) {
+   console.log('>>>>', data);
+   if(typeof data.error === 'object') {
+    var error = data.error;
+    alert(error.module+'::'+error.code+'::'+error.message);
+   } else {
+    window.open(data.redirect);
+   }
+  }, 'json');
+ }
+</script>
